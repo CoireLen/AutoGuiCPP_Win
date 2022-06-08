@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <random>
 #include <vector>
+#include "screencut.h"
 struct ScreenZoom
 {
     double x;
@@ -20,6 +21,7 @@ private:
     
     /* data */
 public:
+    screencut screen;
     std::vector<HWND> FindWindowByName(char * classname,char * windowname); //取得所有匹配的窗口句柄
     POINT ScreenSize={0,0};
     void click(int x,int y,float time=0); //移动并点击到x,y; 移动到x,y所用的时间(秒)

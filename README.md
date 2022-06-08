@@ -4,3 +4,5 @@
 - [ ] 鼠标模拟
 - [ ] 键盘模拟
 - [ ] 剪贴板操作
+- [x] 截图Dxgi
+- [ ] 截图Windows.Graphics.Capture

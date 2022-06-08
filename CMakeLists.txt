@@ -3,9 +3,9 @@ project(AutoGui VERSION 0.1.0)
 
 include(CTest)
 enable_testing()
-
-add_executable(AutoGui main.cpp autogui.h autogui.cpp)
-
+find_package(OpenCV CONFIG REQUIRED)
+add_executable(AutoGui main.cpp autogui.h autogui.cpp screencut.h screencut.cpp)
+target_link_libraries(AutoGui ${OpenCV_LIBS} d3d11 dxgi)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
