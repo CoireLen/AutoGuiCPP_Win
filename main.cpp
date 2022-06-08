@@ -9,10 +9,14 @@ int main(int, char**) {
     auto hwnd=ag.FindWindowByName(NULL,NULL);
     std::cout <<"Search Have:"<<hwnd.size()<<std::endl;
     std::for_each(hwnd.begin(),hwnd.end(),[](HWND i){std::cout<<i<<std::endl;});
+    //截取当前桌面
     auto i=ag.screen.capture();
     auto img=cv::Mat(ag.ScreenSize.y,ag.ScreenSize.x,CV_8UC4,i);
     cv::imshow("",img);
     cv::waitKey();
     delete i;
-   // cv::imdecode()
+    //取得窗口位置
+    auto rect=ag.GetRect(hwnd);
+    std::for_each(rect.begin(),rect.end(),[](RECT i){printf("Left Top:(%d,%d)|Right Button:(%d,%d)\n",i.left,i.top,i.right,i.bottom);});
+
 }

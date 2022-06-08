@@ -52,3 +52,18 @@ std::vector<HWND> autogui::FindWindowByName(char *classname,char * windowname){
     }
     return vHWND;
 }
+RECT autogui::GetRect(HWND hwnd){
+    RECT rt={0,0,0,0};
+    if (GetWindowRect(hwnd,&rt)==0)
+    {
+        printf("GetWindowRect Fail\n");
+    }
+    return rt;
+}
+std::vector<RECT> autogui::GetRect(std::vector<HWND> hwnd){
+    std::vector<RECT> vRECT;
+    for (HWND i:hwnd){
+        vRECT.push_back(GetRect(i));
+    }
+    return vRECT;
+}
