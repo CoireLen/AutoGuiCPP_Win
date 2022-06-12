@@ -1,4 +1,5 @@
 #include "autogui.h"
+#include <string.h>
 autogui::autogui(/* args */)
 {
     RandValue10_30=std::uniform_int_distribution<unsigned> (10,30);
@@ -66,4 +67,42 @@ std::vector<RECT> autogui::GetRect(std::vector<HWND> hwnd){
         vRECT.push_back(GetRect(i));
     }
     return vRECT;
+}
+
+
+clipboard::clipboard(/* args */)
+{
+}
+
+clipboard::~clipboard()
+{
+}
+void clipboard::setvalue(char * str){
+    if (OpenClipboard(GetActiveWindow())){
+        EmptyClipboard();
+        int b = strnlen(str,1000);
+        int size =sizeof(char)* (b+1);
+        LPWSTR pData = (LPWSTR)GlobalAlloc(GMEM_MOVEABLE,size);
+        if (pData ==NULL){
+            printf("clipboard alloc mem fail");
+            return;
+        }
+        auto hData=GlobalLock(pData);
+        if (hData==NULL){
+            printf("clipboard lock mem fail");
+            return;
+        }
+        if (size < 1000)
+            memcpy(hData,(void *)str, size);
+        GlobalUnlock(hData);
+        if (SetClipboardData(CF_TEXT,hData)==NULL){
+            CloseClipboard();
+            printf("set clipboard data fail");
+            return;
+        }
+        CloseClipboard();
+    }
+    else{
+        printf("opencliboard fail");
+    }
 }

@@ -8,7 +8,15 @@ struct ScreenZoom
     double y;
     /* data */
 };
-
+class clipboard
+{
+private:
+    /* data */
+public:
+    clipboard(/* args */);
+    ~clipboard();
+    void setvalue(char * str);
+};
 class autogui
 {
 private:
@@ -22,6 +30,7 @@ private:
     /* data */
 public:
     screencut screen;
+    clipboard clipboard;
     std::vector<HWND> FindWindowByName(char * classname,char * windowname); //取得所有匹配的窗口句柄
     RECT GetRect(HWND hwnd);
     std::vector<RECT> GetRect(std::vector<HWND> hwnd);
@@ -30,4 +39,7 @@ public:
     autogui(/* args */);
     ~autogui();
 };
+
+
+
 
