@@ -16,6 +16,7 @@ public:
     clipboard(/* args */);
     ~clipboard();
     void setvalue(char * str);
+    void setvalue(std::wstring str);
 };
 class autogui
 {
@@ -39,7 +40,4 @@ public:
     autogui(/* args */);
     ~autogui();
 };
-
-
-
 
