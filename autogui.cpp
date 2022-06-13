@@ -106,3 +106,32 @@ void clipboard::setvalue(char * str){
         printf("opencliboard fail");
     }
 }
+void clipboard::setvalue(std::wstring str){
+    if (OpenClipboard(GetActiveWindow())){
+        EmptyClipboard();
+        int b = str.length();
+        int size =sizeof(str[0])* (b+1);
+        LPWSTR pData = (LPWSTR)GlobalAlloc(GMEM_MOVEABLE,size);
+        if (pData ==NULL){
+            printf("clipboard alloc mem fail");
+            return;
+        }
+        auto hData=GlobalLock(pData);
+        if (hData==NULL){
+            printf("clipboard lock mem fail");
+            return;
+        }
+        if (size < 1000)
+            memcpy(hData,(void *)str.data(), size);
+        GlobalUnlock(hData);
+        if (SetClipboardData(CF_UNICODETEXT,hData)==NULL){
+            CloseClipboard();
+            printf("set clipboard data fail");
+            return;
+        }
+        CloseClipboard();
+    }
+    else{
+        printf("opencliboard fail");
+    }
+}
