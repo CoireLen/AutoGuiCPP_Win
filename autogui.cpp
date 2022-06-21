@@ -53,6 +53,14 @@ std::vector<HWND> autogui::FindWindowByName(char *classname,char * windowname){
     }
     return vHWND;
 }
+std::vector<HWND> autogui::FindChildWindow(HWND hwndparent,char *classname,char * windowname){
+    std::vector<HWND> vhwnd;
+    HWND hwnd=NULL;
+    while((hwnd=FindWindowExA(hwndparent,hwnd,classname,windowname))!=NULL){
+        vhwnd.push_back(hwnd);
+    }
+    return vhwnd;
+}
 RECT autogui::GetRect(HWND hwnd){
     RECT rt={0,0,0,0};
     if (GetWindowRect(hwnd,&rt)==0)
@@ -125,6 +133,34 @@ void clipboard::setvalue(std::wstring str){
             memcpy(hData,(void *)str.data(), size);
         GlobalUnlock(hData);
         if (SetClipboardData(CF_UNICODETEXT,hData)==NULL){
+            CloseClipboard();
+            printf("set clipboard data fail");
+            return;
+        }
+        CloseClipboard();
+    }
+    else{
+        printf("opencliboard fail");
+    }
+}
+void clipboard::setimg(u_char * img,u_int height,u_int weidth){
+    if (OpenClipboard(GetActiveWindow())){
+        EmptyClipboard();
+        u_int size =height*weidth*4;
+        LPWSTR pData = (LPWSTR)GlobalAlloc(GMEM_MOVEABLE,size);
+        if (pData ==NULL){
+            printf("clipboard alloc mem fail");
+            return;
+        }
+        auto hData=GlobalLock(pData);
+        if (hData==NULL){
+            printf("clipboard lock mem fail");
+            return;
+        }
+        if (size < 1000)
+            memcpy(hData,(void *)img, size);
+        GlobalUnlock(hData);
+        if (SetClipboardData(CF_BITMAP,hData)==NULL){
             CloseClipboard();
             printf("set clipboard data fail");
             return;

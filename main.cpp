@@ -18,5 +18,9 @@ int main(int, char**) {
     //取得窗口位置
     auto rect=ag.GetRect(hwnd);
     std::for_each(rect.begin(),rect.end(),[](RECT i){printf("Left Top:(%d,%d)|Right Button:(%d,%d)\n",i.left,i.top,i.right,i.bottom);});
-    ag.clipboard.setvalue("123\0");
+    
+    //设置剪贴板
+    ag.clipboard.setvalue("123");
+    ag.clipboard.setvalue(std::wstring(L"剪贴板"));
+
 }

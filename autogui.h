@@ -17,6 +17,7 @@ public:
     ~clipboard();
     void setvalue(char * str);
     void setvalue(std::wstring str);
+    void setimg(u_char * img,u_int height,u_int weidth);
 };
 class autogui
 {
@@ -33,6 +34,7 @@ public:
     screencut screen;
     clipboard clipboard;
     std::vector<HWND> FindWindowByName(char * classname,char * windowname); //取得所有匹配的窗口句柄
+    std::vector<HWND> FindChildWindow(HWND hwndparent,char * classname,char * windowname);
     RECT GetRect(HWND hwnd);
     std::vector<RECT> GetRect(std::vector<HWND> hwnd);
     POINT ScreenSize={0,0};
