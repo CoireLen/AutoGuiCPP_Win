@@ -24,7 +24,7 @@ public:
     void rotateImg(unsigned char *pImgData);
     void saveBmpFile(const char *fileName, unsigned char *pImgData, int imgLength);
     unsigned char * capture() ;//返回一个 CV_8UC4 的图像指针 请别忘了delete
-
+    unsigned char *capture(unsigned char *pImgData) ;
     screencut(/* args */);
     ~screencut();
 };

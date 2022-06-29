@@ -292,7 +292,13 @@ unsigned char * screencut::capture()
 	QueryFrame(buf, pImgData, imgLength);
 	return pImgData;
 }
- 
+unsigned char * screencut::capture(unsigned char *pImgData) 
+{
+	int imgLength = iWidth * iHeight * 4;
+	char buf[10] = {0};
+	QueryFrame(buf, pImgData, imgLength);
+	return pImgData;
+}
  
 screencut::screencut(/* args */)
 {
