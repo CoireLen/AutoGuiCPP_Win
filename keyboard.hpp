@@ -41,10 +41,10 @@ void keyboard::shift_(char key,char scan){
     keyup(key,scan);
 }
 void keyboard::ctrl_(char key,char scan){
-    keydown(VK_MENU,0x1D);
+    keydown(VK_LCONTROL,0x1D);
     keydown(key,scan);
     Sleep((DWORD)RandValue10_30(RandEngine));
-    keyup(VK_LSHIFT,0x9D);
+    keyup(VK_LCONTROL,0x9D);
     keyup(key,scan);
 }
 keyboard::keyboard()
